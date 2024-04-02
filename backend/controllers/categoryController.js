@@ -1,5 +1,18 @@
 const Category = require("../models/categoryModel");
 
+// Create a new category
+const createCategory = async (req, res) => {
+  try {
+    const category = new Category({
+      name: req.body.name,
+    });
+    const newCategory = await category.save();
+    res.status(201).json(newCategory);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 // Get all categories
 const getAllCategories = async (req, res) => {
   try {
@@ -57,6 +70,7 @@ const updateCategory = async (req, res) => {
 };
 
 module.exports = {
+  createCategory,
   getAllCategories,
   getSingleCategory,
   deleteCategory,

@@ -11,14 +11,17 @@ const Router = express.Router();
 const { userVerification } = require("../middleware/authMiddleware");
 const upload = require("../middleware/photoUpload");
 
-//User register
+//User register and signup
 Router.post("/signup", upload.single("avatar"), signup);
 Router.post("/login", login);
 Router.post("/", userVerification);
 
-Router.get("/getall", users);
-Router.get("/getone/:id", user);
-Router.delete("/delete/:id", deleteUser);
+//get all and get one user
+Router.get("/", users);
+Router.get("/:id", user);
+
+//Update & Delete
+Router.delete("/:id", deleteUser);
 Router.patch("/edit/:id", upload.single("avatar"), editUser);
 Router.patch("/editadmin/:id", upload.single("avatar"), editUserAdmin);
 
