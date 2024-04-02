@@ -13,13 +13,32 @@ const signup = async (req, res, next) => {
     if (existinguser) {
       return res.json({ message: "User already exists" });
     }
+    //image upload
+    let imageFileName = "";
+
+    if (req.file) {
+      imageFileName = req.file.filename;
+    }
 
     //checks if customer
     if (role === "customer") {
       const { balance } = req.body;
-      user = await User.create({ name, email, password, role, balance });
+      user = await User.create({
+        name,
+        email,
+        password,
+        role,
+        balance,
+        image: imageFileName,
+      });
     } else {
-      user = await User.create({ name, email, password, role });
+      user = await User.create({
+        name,
+        email,
+        password,
+        role,
+        image: imageFileName,
+      });
     }
 
     const token = createSecretToken(user._id);
