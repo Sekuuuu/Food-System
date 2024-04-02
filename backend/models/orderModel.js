@@ -14,7 +14,7 @@ const order = new Schema(
     date: {
       type: Date,
       default: Date.now,
-      required: [true, "Date is required."],
+      // required: [true, "Date is required."],
     },
     quantity: {
       type: Number,
@@ -22,7 +22,7 @@ const order = new Schema(
     },
     status: {
       type: String,
-      enum: ["Ordered", "Cooking", "Delivered"],
+      enum: ["Ordered", "Delivered"],
       default: "Ordered",
     },
   },

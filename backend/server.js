@@ -6,6 +6,8 @@ const cors = require("cors");
 const userRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const itemRoutes = require("./routes/itemRoutes");
+const menuRoutes = require("./routes/menuRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 //Express app
 const app = express();
@@ -23,8 +25,8 @@ app.use((req, res, next) => {
 app.use("/api/user", userRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/item", itemRoutes);
-app.use("/api/menu", userRoutes);
-app.use("/api/order", userRoutes);
+app.use("/api/menu", menuRoutes);
+app.use("/api/order", orderRoutes);
 
 app.get("/", (req, res) => {
   console.log("Yes the server is working");

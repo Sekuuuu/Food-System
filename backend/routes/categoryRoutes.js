@@ -3,12 +3,14 @@ const Router = express.Router();
 const {
   createCategory,
   getAllCategories,
+  getSingleCategory,
   deleteCategory,
   updateCategory,
 } = require("../controllers/categoryController");
 
 Router.post("/", upload.single("avatar"), createCategory);
 Router.get("/", getAllCategories);
+Router.get("/:id", getSingleCategory);
 Router.delete("/:id", deleteCategory);
 Router.patch("/:id", upload.single("avatar"), updateCategory);
 

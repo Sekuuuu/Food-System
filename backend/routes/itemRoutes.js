@@ -13,3 +13,5 @@ Router.get("/", getAllItems);
 Router.get("/:id", getSingleItem);
 Router.delete("/:id", deleteItem);
 Router.patch("/:id", upload.single("avatar"), updateItem);
+
+module.exports = Router;
