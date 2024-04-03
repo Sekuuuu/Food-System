@@ -1,5 +1,7 @@
 const express = require("express");
 const Router = express.Router();
+const upload = require("../middleware/photoUpload");
+
 const {
   createItem,
   getAllItems,

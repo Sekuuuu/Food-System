@@ -1,7 +1,7 @@
 // controllers/orderController.js
-const Order = require("../models/order");
-const User = require("../models/user");
-const Menu = require("../models/menu");
+const Order = require("../models/orderModel");
+const User = require("../models/userModel");
+const Menu = require("../models/menuModel");
 
 // Create a new order
 const createOrder = async (req, res) => {

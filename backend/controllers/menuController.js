@@ -1,4 +1,4 @@
-const Menu = require("../models/menu");
+const Menu = require("../models/menuModel");
 
 // Get all menus for the current day
 const getAllMenu = async (req, res) => {
