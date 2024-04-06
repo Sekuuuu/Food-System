@@ -10,10 +10,10 @@ const {
   updateCategory,
 } = require("../controllers/categoryController");
 
-Router.post("/", upload.single("avatar"), createCategory);
+Router.post("/", createCategory);
 Router.get("/", getAllCategories);
 Router.get("/:id", getSingleCategory);
 Router.delete("/:id", deleteCategory);
-Router.patch("/:id", upload.single("avatar"), updateCategory);
+Router.patch("/:id", updateCategory);
 
 module.exports = Router;

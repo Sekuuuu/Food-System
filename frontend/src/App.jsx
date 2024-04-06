@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Login, Signup } from "./pages";
 import Home from "./pages/home"; //yo pani milcha
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
+
 
 function App() {
   const [count, setCount] = useState(0);

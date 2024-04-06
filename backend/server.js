@@ -15,7 +15,11 @@ const app = express();
 //Middlewares
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors()); //Uses CORS to allow cross-origin requests
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true, // Allow credentials
+};
+app.use(cors(corsOptions)); //Uses CORS to allow cross-origin requests
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
