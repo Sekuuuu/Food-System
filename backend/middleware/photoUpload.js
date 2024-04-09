@@ -6,12 +6,12 @@ const storage = multer.diskStorage({
     cb(null, "images/user/");
   },
   filename: (req, file, cb) => {
-    cb(null, "User-" + Date.now() + path.extname(file.originalname));
+    cb(null, "image-" + Date.now() + path.extname(file.originalname));
   },
 });
 
 const imageFilter = (req, file, cb) => {
-  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif|webp)$/)) {
     cb(new Error("Only Image Files"), false);
   } else {
     cb(null, true);

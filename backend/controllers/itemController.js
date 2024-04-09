@@ -2,13 +2,13 @@ const Item = require("../models/itemModel");
 
 const createItem = async (req, res) => {
   try {
-    const item = new Item({
+    const item = await Item.create({
       name: req.body.name,
       image: req.file ? req.file.filename : "",
       price: req.body.price,
     });
-    const newItem = await item.save();
-    res.status(201).json(newItem);
+    // const newItem = await item.save();
+    res.status(201).json(item);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

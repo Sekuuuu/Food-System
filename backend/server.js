@@ -8,6 +8,7 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const itemRoutes = require("./routes/itemRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const path = require("path");
 
 //Express app
 const app = express();
@@ -20,6 +21,7 @@ const corsOptions = {
   credentials: true, // Allow credentials
 };
 app.use(cors(corsOptions)); //Uses CORS to allow cross-origin requests
+app.use("/images/user", express.static(path.join(__dirname, "images/user")));
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();

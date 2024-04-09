@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import Menu from "../components/menu";
 import Navbar from "../components/navbar";
+import Hero from "../components/hero";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const Home = () => {
       //   console.log("No cookies")
       //   return;
       // }
-      
+
       try {
         const { data } = await axios.post(
           "http://localhost:4000/api/user/",
@@ -46,10 +48,8 @@ const Home = () => {
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
 
-  
-
   if (loading) {
-    return (null); // or a loading spinner
+    return null; // or a loading spinner
   }
 
   return (
@@ -61,8 +61,9 @@ const Home = () => {
         </h4>
         <button onClick={Logout}>LOGOUT</button>
       </div> */}
-      <Navbar removeCookie={removeCookie}/>
-
+      <Navbar removeCookie={removeCookie} />
+      <Hero />
+      <Menu />
       <ToastContainer />
     </>
   );
