@@ -21,7 +21,9 @@ const corsOptions = {
   credentials: true, // Allow credentials
 };
 app.use(cors(corsOptions)); //Uses CORS to allow cross-origin requests
+
 app.use("/images/user", express.static(path.join(__dirname, "images/user")));
+
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
