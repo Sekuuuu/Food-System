@@ -2,45 +2,47 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useItems } from "../../context/itemContext";
 
-
 const ItemForm = () => {
-    const { setItems } = useItems();
-    const [newItemName, setNewItemName] = useState("");
-    const [newItemPrice, setNewItemPrice] = useState("");
-    const [newItemImage, setNewItemImage] = useState(null);
-   
+  const { items, setItems } = useItems();
+  const [newItemName, setNewItemName] = useState("");
+  const [newItemPrice, setNewItemPrice] = useState("");
+  const [newItemImage, setNewItemImage] = useState(null);
+
   
-    const handleAddItem = () => {
-      if (!newItemName || !newItemPrice) {
-        toast.error("Enter all fields.", {
-          position: "bottom-left",
-          autoClose: 3000,
-        });
-        return;
-      }
-  
-      const formData = new FormData();
-      formData.append("name", newItemName);
-      formData.append("price", newItemPrice);
-      if (newItemImage) {
-        formData.append("avatar", newItemImage);
-      }
-  
-      fetch("http://localhost:4000/api/item", {
-        method: "POST",
-        body: formData,
+  const handleAddItem = () => {
+    if (!newItemName || !newItemPrice) {
+      toast.error("Enter all fields.", {
+        position: "bottom-left",    
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", newItemName);
+    formData.append("price", newItemPrice);
+    if (newItemImage) {
+      formData.append("avatar", newItemImage);
+    }
+
+    fetch("http://localhost:4000/api/item", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        response.json();
       })
-        .then((response) => response.json())
-        .then((data) => {
-          setItems((prevItems) => [...prevItems, data]);
-          setNewItemName("");
-          setNewItemPrice("");
-          setNewItemImage(null);
-          setImagePreview("");
-        })
-        .catch((error) => console.error("Error adding item: ", error));
-    };
-  
+      .then((data) => {
+        setItems((prevItems) => [...prevItems, data]);
+        setNewItemName("");
+        setNewItemPrice("");
+        setNewItemImage(null);
+        setImagePreview("");
+        
+      })
+      .catch((error) => console.error("Error adding item: ", error));
+  };
+
   //Image Preview
   const [imagePreview, setImagePreview] = useState("");
 
@@ -73,37 +75,38 @@ const ItemForm = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className="text-3xl font-semibold 1mb-4">Item Management</h1>
+    <div className="my-5">
+      <h1 className="text-3xl font-semibold mb-4">Item Creation</h1>
 
       <div className="border border-gray-300 rounded p-4">
         <div className="mb-4">
-          <label htmlFor="itemName" className="block text-gray-700 font-medium">
+          {/* <label htmlFor="itemName" className="block text-gray-700 font-medium">
             Item Name
-          </label>
+          </label> */}
           <input
             type="text"
             id="itemName"
-            placeholder="Item Name"
+            placeholder="Enter Item Name"
             value={newItemName}
             onChange={(e) => setNewItemName(e.target.value)}
-            className="w-64 p-2 border rounded"
+            className=" w-96 p-2 border rounded"
+            autoComplete="off"
           />
         </div>
         <div className="mb-4">
-          <label
+          {/* <label
             htmlFor="itemPrice"
             className="block text-gray-700 font-medium"
           >
             Item Price
-          </label>
+          </label> */}
           <input
             type="number"
             id="itemPrice"
-            placeholder="Item Price"
+            placeholder="Enter Item Price"
             value={newItemPrice}
             onChange={(e) => setNewItemPrice(e.target.value)}
-            className="w-32 p-2 border rounded"
+            className="w-96 p-2 border rounded"
           />
         </div>
         {/* Image File Input (with improved styling) */}
@@ -148,7 +151,7 @@ const ItemForm = () => {
           Add Item
         </button>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 };
