@@ -82,7 +82,9 @@ const ItemForm = () => {
         <div className="mb-4">
           {/* <label htmlFor="itemName" className="block text-gray-700 font-medium">
             Item Name
-          </label> */}
+          </label> 
+          khada hu aaj bhi yehi
+          */}
           <input
             type="text"
             id="itemName"
