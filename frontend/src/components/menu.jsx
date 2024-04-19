@@ -134,7 +134,7 @@ const Menu = () => {
                           <input
                             type="number"
                             className="w-10 text-center border mx-2"
-                            value={item.quantity}
+                            // value={item.quantity}
                           />
                           <button className="p-2 px-3 text-sm bg-yellow-600 rounded-full">
                             +

@@ -23,6 +23,6 @@ Router.get("/:id", user);
 //Update & Delete
 Router.delete("/:id", deleteUser);
 Router.patch("/edit/:id", upload.single("avatar"), editUser);
-Router.patch("/editadmin/:id", upload.single("avatar"), editUserAdmin);
+Router.patch("/editadmin/", upload.single("avatar"), editUserAdmin);
 
 module.exports = Router;

@@ -29,11 +29,10 @@ const user = async (req, res) => {
 //delete a user
 const deleteUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    await user.remove();
     res.json({ message: "User deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -69,9 +68,12 @@ const editUser = async (req, res) => {
 
 const editUserAdmin = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
+    if (user.role === "admin") {
+      return res.status(404).json({ message: "User is admin" });
     }
 
     if (req.body.name != null) {
@@ -86,12 +88,16 @@ const editUserAdmin = async (req, res) => {
     if (req.body.role != null) {
       user.role = req.body.role;
     }
-    if (req.body.balance != null) {
-      user.balance = req.body.balance;
-    }
+    // if (req.body.balance != null) {
+    //   user.balance = req.body.balance;
+    // }
     if (req.file) {
       user.image = req.file.filename;
     }
+
+    // Add the balance to the existing balance
+    const balanceToAdd = parseFloat(req.body.balanceToAdd);
+    user.balance += balanceToAdd;
 
     const updatedUser = await user.save();
     res.json(updatedUser);

@@ -7,6 +7,7 @@ const Navbar = () => {
   const [cookies, removeCookie] = useCookies([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     const verifyCookie = async () => {
@@ -22,8 +23,10 @@ const Navbar = () => {
           {},
           { withCredentials: true }
         );
-        const { status, user } = data;
+        const { status, role } = data;
         if (status) {
+          setUserRole(role);
+          
         } else {
           removeCookie("token");
           navigate("/login");
@@ -38,6 +41,7 @@ const Navbar = () => {
 
     verifyCookie();
   }, [cookies, navigate, removeCookie]);
+
   if (loading) {
     return null; // or a loading spinner
   }
@@ -53,6 +57,7 @@ const Navbar = () => {
     removeCookie("token");
     navigate("/login");
   };
+
   return (
     <header className="text-gray-600 body-font">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -72,7 +77,7 @@ const Navbar = () => {
           >
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span className="select-none ml-3 text-xl">Shibal foods</span>
+          <span className="select-none ml-3 text-xl">Food System</span>
         </a>
         <nav className=" select-none md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
           <a className="mr-5 text-x hover:text-gray-900">Today's Menu</a>
@@ -80,12 +85,14 @@ const Navbar = () => {
           <a className="mr-5 hover:text-gray-900">Reports</a>
           <a className="mr-5 hover:text-gray-900">Shibal</a>
         </nav>
-        <button className="">
-          <span onClick={Admin} className="material-symbols-outlined">
-            admin_panel_settings
-          </span>
-        </button>
-        <button className=" pl-10">
+        {userRole === "admin" && (
+          <button className="">
+            <span onClick={Admin} className="material-symbols-outlined">
+              admin_panel_settings
+            </span>
+          </button>
+        )}
+        <button className="pl-10">
           <span onClick={Logout} className="material-symbols-outlined">
             logout
           </span>

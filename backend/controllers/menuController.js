@@ -38,11 +38,10 @@ const createMenu = async (req, res) => {
 // Delete a menu
 const deleteMenu = async (req, res) => {
   try {
-    const menu = await Menu.findById(req.params.id);
-    if (!menu) {
+    const deletedMenu = await Menu.deleteOne({ _id: req.params.id });
+    if (deletedMenu.deletedCount === 0) {
       return res.status(404).json({ message: "Menu not found" });
     }
-    await menu.remove();
     res.json({ message: "Menu deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });

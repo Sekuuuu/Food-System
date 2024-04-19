@@ -20,7 +20,8 @@ const userVerification = (req, res) => {
       });
     } else {
       const user = await User.findById(data.id);
-      if (user) return res.json({ status: true, user: user.name });
+      if (user)
+        return res.json({ status: true, user: user.name, role: user.role });
       else return res.json({ status: false });
     }
   });
